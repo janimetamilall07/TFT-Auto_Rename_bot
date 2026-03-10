@@ -7,7 +7,7 @@ id_pattern = re.compile(r'^.\d+$')
 # Fetch initial admin list
 ADMIN = []  # TemporLoad admins when the bot starts
 
-TOKEN_VERIFY=False
+TOKEN_VERIFY=true
 API = environ.get("API", "5a7508a173d6462e4cd4b723766b92541c389a6b") # shortlink api
 URL = environ.get("URL", "arolinks.com") # shortlink domain without https://
 VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/+Gt55OVP7VTAyNmNl") # how to open link 
