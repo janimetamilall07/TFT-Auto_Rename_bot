@@ -18,8 +18,7 @@ USER_LIMIT_TIME = int(os.environ.get("USER_LIMIT_TIME", "1"))#enter time based o
 class Config(object):
     # pyro client config
     API_ID    = os.environ.get("API_ID", "38633415")
-    API_HASH  = os.environ.get("API_HASH", "fd6ebf8ccb018ea026e4922f23afe7b5
-")
+    API_HASH  = os.environ.get("API_HASH", "fd6ebf8ccb018ea026e4922f23afe7b5")
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "") 
 
     # database config
