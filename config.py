@@ -26,7 +26,7 @@ class Config(object):
     DB_URL  = os.environ.get("DB_URL","")
     PORT = os.environ.get("PORT", "8050")
     OWNER = int(os.environ.get("OWNER", "8141907006"))
-    PRIVATE_USE = False #If Bot is private use set True otherwise False
+    PRIVATE_USE = True #If Bot is private use set True otherwise False
  
     # other configs
     BOT_UPTIME  = time.time()
@@ -34,7 +34,7 @@ class Config(object):
     
     FORCE_SUB_CHANNELS = os.environ.get('FORCE_SUB_CHANNELS', "jcodefixe").split(',')
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1002538434540" ))
-    DUMB_CHANNEL = os.environ.get("DUMB_CHANNEL", "")
+    DUMB_CHANNEL = os.environ.get("DUMB_CHANNEL", "-1002538434540")
     
     # wes response configuration     
     WEBHOOK = bool(os.environ.get("WEBHOOK", "True"))
@@ -53,7 +53,7 @@ class Txt(object):
 
 ➻ This Bot is only for Admin use other can use with low limitation </blockquote>
 
-<blockquote><b>Bot Is Made By :</b> @Tech_Freak_Tamil</blockquote>"""
+<blockquote><b>Bot Is Made By :</b> @jcodefixe</blockquote>"""
 
     ABOUT_TXT = f"""<blockquote><b>😈 My Name :</b> <a href='https://t.me/Tech_Freak_Tamil'>Auto Renamer bot ⚡</a>
 <b>📝 Language :</b> <a href='https://python.org'>Python 3</a>
@@ -105,9 +105,9 @@ If You Like My Bots & Projects, You Can 🎁 Donate Me Any Amount From 10 Rs Upt
 
 For Example :-
 
-<code>By :- @Tech_Freak_Tamil</code>
+<code>By :- @jcodefixe</code>
 
-💬 For Any Help Contact @Tech_Freak_Tamil
+💬 For Any Help Contact @jcodefixe
 </blockquote>"""
 
 
