@@ -7,7 +7,7 @@ id_pattern = re.compile(r'^.\d+$')
 # Fetch initial admin list
 ADMIN = []  # TemporLoad admins when the bot starts
 
-TOKEN_VERIFY=true
+TOKEN_VERIFY=false
 API = environ.get("API", "5a7508a173d6462e4cd4b723766b92541c389a6b") # shortlink api
 URL = environ.get("URL", "arolinks.com") # shortlink domain without https://
 VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/+Gt55OVP7VTAyNmNl") # how to open link 
@@ -17,15 +17,16 @@ USER_LIMIT_TIME = int(os.environ.get("USER_LIMIT_TIME", "1"))#enter time based o
 
 class Config(object):
     # pyro client config
-    API_ID    = os.environ.get("API_ID", " ")
-    API_HASH  = os.environ.get("API_HASH", "")
+    API_ID    = os.environ.get("API_ID", "38633415")
+    API_HASH  = os.environ.get("API_HASH", "fd6ebf8ccb018ea026e4922f23afe7b5
+")
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "") 
 
     # database config
     DB_NAME = os.environ.get("DB_NAME","")     
     DB_URL  = os.environ.get("DB_URL","")
     PORT = os.environ.get("PORT", "8050")
-    OWNER = int(os.environ.get("OWNER", ""))
+    OWNER = int(os.environ.get("OWNER", "8141907006"))
     PRIVATE_USE = False #If Bot is private use set True otherwise False
  
     # other configs
