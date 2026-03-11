@@ -48,8 +48,8 @@ async def start(client, message):
     user = message.from_user
     await TFTBOTS.add_user(client, message)                
     button = InlineKeyboardMarkup([
-        [InlineKeyboardButton('🔊 Updates', url='https://t.me/Tech_freak_tamil'),
-        InlineKeyboardButton('♻️ Sᴜᴩᴩᴏʀᴛ', url='https://t.me/Tech_freak_tamil')],
+        [InlineKeyboardButton('🔊 Updates', url='https://t.me/jcodefixe'),
+        InlineKeyboardButton('♻️ Sᴜᴩᴩᴏʀᴛ', url='https://t.me/jcodefixenet')],
         [InlineKeyboardButton('❤️‍🩹 About', callback_data='about'),
         InlineKeyboardButton('🛠️ Help', callback_data='help')],
         [InlineKeyboardButton("Close ❌", callback_data='close')]
@@ -68,8 +68,8 @@ async def cb_handler(bot:Client, query: CallbackQuery):
             text=Txt.START_TXT.format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton('🔊 Updates', url='https://t.me/Tech_freak_tamil'),
-                InlineKeyboardButton('♻️ Sᴜᴩᴩᴏʀᴛ', url='https://t.me/Tech_freak_tamil')],
+                [InlineKeyboardButton('🔊 Updates', url='https://t.me/jcodefixe'),
+                InlineKeyboardButton('♻️ Sᴜᴩᴩᴏʀᴛ', url='https://t.me/jcodefixenet')],
                 [InlineKeyboardButton('❤️‍🩹 About', callback_data='about'),
                 InlineKeyboardButton('🛠️ Help', callback_data='help')],
                 [InlineKeyboardButton("❌ Close", callback_data='close')]
@@ -80,7 +80,7 @@ async def cb_handler(bot:Client, query: CallbackQuery):
             text=Txt.HELP_TXT,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("⚡ Rename Bot", url="https://t.me/Tech_freak_tamil")],
+                [InlineKeyboardButton("⚡ Rename Bot", url="https://t.me/jcodefixenet")],
                 [InlineKeyboardButton("🔒 Close", callback_data = "close"),
                 InlineKeyboardButton("◀️ Back", callback_data = "start")]
             ])            
@@ -90,7 +90,7 @@ async def cb_handler(bot:Client, query: CallbackQuery):
             text=Txt.ABOUT_TXT.format(bot.mention),
             disable_web_page_preview = True,
             reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("🤖 More Bots", url="https://t.me/Tech_freak_tamil")],
+                [InlineKeyboardButton("🤖 More Bots", url="https://t.me/jcodefixe")],
                 [InlineKeyboardButton("🔒 Cʟᴏꜱᴇ", callback_data = "close"),
                 InlineKeyboardButton("◀️ Bᴀᴄᴋ", callback_data = "start")]
             ])            
