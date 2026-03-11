@@ -55,7 +55,7 @@ class Txt(object):
 
 <blockquote><b>Bot Is Made By :</b> @jcodefixe</blockquote>"""
 
-    ABOUT_TXT = f"""<blockquote><b>😈 My Name :</b> <a href='https://t.me/Tech_Freak_Tamil'>Auto Renamer bot ⚡</a>
+    ABOUT_TXT = f"""<blockquote><b>😈 My Name :</b> <a href='https://t.me/jcodefixe'>Auto Renamer bot ⚡</a>
 <b>📝 Language :</b> <a href='https://python.org'>Python 3</a>
 <b>📚 Library :</b> <a href='https://pyrogram.org'>Pyrogram 2.0</a>
 <b>🚀 Server :</b> <a href='https://heroku.com'>Heroku</a>
