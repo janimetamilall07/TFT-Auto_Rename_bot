@@ -5,7 +5,7 @@ id_pattern = re.compile(r'^.\d+$')
 
 
 # Fetch initial admin list
-ADMIN = []  # TemporLoad admins when the bot starts
+ADMIN = [7156161923]  # TemporLoad admins when the bot starts
 
 TOKEN_VERIFY=False
 API = environ.get("API", "5a7508a173d6462e4cd4b723766b92541c389a6b") # shortlink api
@@ -43,7 +43,7 @@ class Config(object):
 class Txt(object):
     # part of text configuration
         
-    START_TXT = """Hello i am bot {} 👋 
+    START_TXT = """Hello {} 👋 
 
 <blockquote>➻ This Is An Advanced Auto rename Bot.
 
