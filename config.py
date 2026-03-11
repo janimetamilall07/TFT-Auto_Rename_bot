@@ -30,7 +30,7 @@ class Config(object):
  
     # other configs
     BOT_UPTIME  = time.time()
-    START_PIC   = os.environ.get("START_PIC", "https://files.catbox.moe/ufzpkn.jpg")
+    START_PIC   = os.environ.get("START_PIC", "AAMCBQADGQEC6mvRabDAtg2IIdsH-zPYt9MHHxGm1qcAAhsfAALsaIhVfHH2n-3mMH8BAAdtAAM6BA")
     
     FORCE_SUB_CHANNELS = os.environ.get('FORCE_SUB_CHANNELS', "jcodefixe").split(',')
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1002538434540" ))
@@ -43,7 +43,7 @@ class Config(object):
 class Txt(object):
     # part of text configuration
         
-    START_TXT = """Hello j {} 👋 
+    START_TXT = """Hello i am bot {} 👋 
 
 <blockquote>➻ This Is An Advanced Auto rename Bot.
 
@@ -59,10 +59,10 @@ class Txt(object):
 <b>📝 Language :</b> <a href='https://python.org'>Python 3</a>
 <b>📚 Library :</b> <a href='https://pyrogram.org'>Pyrogram 2.0</a>
 <b>🚀 Server :</b> <a href='https://heroku.com'>Heroku</a>
-<b>📢 Channel :</b> <a href='https://t.me/Tech_Freak_Tamil'>TFT BOTS</a>
-<b>🛡️ Disscussion :</b> <a href='https://t.me/+ov2l_dY_8jA3MGVl'>TFT Discussion</a></blockquote>
+<b>📢 Channel :</b> <a href='https://t.me/jcodefixe'>J BOTS</a>
+<b>🛡️ Disscussion :</b> <a href='https://t.me/jcodefixenet'>J Discussion</a></blockquote>
     
-<blockquote><b>😈 Bot Made By :</b> <a href='https://t.me/+ov2l_dY_8jA3MGVl'>TFT Discussion</a></blockquote>"""
+<blockquote><b>😈 Bot Made By :</b> <a href='https://t.me/jcodefixenet'>J Discussion</a></blockquote>"""
 
     HELP_TXT = """<blockquote>
 🌌 <b><u>How To Set Thumbnail</u></b>
