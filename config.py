@@ -30,7 +30,7 @@ class Config(object):
  
     # other configs
     BOT_UPTIME  = time.time()
-    START_PIC   = os.environ.get("START_PIC", "AAMCBQADGQEC6mvRabDAtg2IIdsH-zPYt9MHHxGm1qcAAhsfAALsaIhVfHH2n-3mMH8BAAdtAAM6BA")
+    START_PIC   = os.environ.get("START_PIC", "https://repgyetdcodkynrbxocg.supabase.co/storage/v1/object/public/images/telegram-1773204540896-2660a89e.jpg")
     
     FORCE_SUB_CHANNELS = os.environ.get('FORCE_SUB_CHANNELS', "jcodefixe").split(',')
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1002538434540" ))
