@@ -43,7 +43,7 @@ class Config(object):
 class Txt(object):
     # part of text configuration
         
-    START_TXT = """Hello {} 👋 
+    START_TXT = """Hello {} 😁 
 
 <blockquote>➻ This Is An Advanced Auto rename Bot.
 
