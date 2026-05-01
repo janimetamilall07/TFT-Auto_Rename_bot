@@ -28,12 +28,6 @@ import asyncio
 renaming_operations = {}
 
 
-
-
-
-# Inside the handler for file uploads
-
-
 # Pattern 1: S01E02 or S01EP02
 pattern1 = re.compile(r'S(\d+)(?:E|EP)(\d+)')
 # Pattern 2: S01 E02 or S01 EP02 or S01 - E01 or S01 - EP02
@@ -46,7 +40,7 @@ pattern3_2 = re.compile(r'(?:\s*-\s*(\d+)\s*)')
 pattern4 = re.compile(r'S(\d+)[^\d]*(\d+)', re.IGNORECASE)
 # Pattern X: Standalone Episode Number
 patternX = re.compile(r'(\d+)')
-#QUALITY PATTERNS 
+#QUALITY PATTERNS
 # Pattern 5: 3-4 digits before 'p' as quality
 pattern5 = re.compile(r'\b(?:.*?(\d{3,4}[^\dp]*p).*?|.*?(\d{3,4}p))\b', re.IGNORECASE)
 # Pattern 6: Find 4k in brackets or parentheses
@@ -61,11 +55,10 @@ pattern9 = re.compile(r'[([<{]?\s*4kX264\s*[)\]>}]?', re.IGNORECASE)
 pattern10 = re.compile(r'[([<{]?\s*4kx265\s*[)\]>}]?', re.IGNORECASE)
 
 def extract_quality(filename):
-    # Try Quality Patterns
     match5 = re.search(pattern5, filename)
     if match5:
         print("Matched Pattern 5")
-        quality5 = match5.group(1) or match5.group(2)  # Extracted quality from both patterns
+        quality5 = match5.group(1) or match5.group(2)
         print(f"Quality: {quality5}")
         return quality5
 
@@ -102,59 +95,48 @@ def extract_quality(filename):
         print("Matched Pattern 10")
         quality10 = "4kx265"
         print(f"Quality: {quality10}")
-        return quality10    
+        return quality10
 
-    # Return "Unknown" if no pattern matches
     unknown_quality = "Unknown"
     print(f"Quality: {unknown_quality}")
     return unknown_quality
-    
 
-def extract_episode_number(filename):    
-    # Try Pattern 1
+
+def extract_episode_number(filename):
     match = re.search(pattern1, filename)
     if match:
         print("Matched Pattern 1")
-        return match.group(2)  # Extracted episode number
-    
-    # Try Pattern 2
+        return match.group(2)
+
     match = re.search(pattern2, filename)
     if match:
         print("Matched Pattern 2")
-        return match.group(2)  # Extracted episode number
+        return match.group(2)
 
-    # Try Pattern 3
     match = re.search(pattern3, filename)
     if match:
         print("Matched Pattern 3")
-        return match.group(1)  # Extracted episode number
+        return match.group(1)
 
-    # Try Pattern 3_2
     match = re.search(pattern3_2, filename)
     if match:
         print("Matched Pattern 3_2")
-        return match.group(1)  # Extracted episode number
-        
-    # Try Pattern 4
+        return match.group(1)
+
     match = re.search(pattern4, filename)
     if match:
         print("Matched Pattern 4")
-        return match.group(2)  # Extracted episode number
+        return match.group(2)
 
-    # Try Pattern X
     match = re.search(patternX, filename)
     if match:
         print("Matched Pattern X")
-        return match.group(1)  # Extracted episode number
-        
-    # Return None if no pattern matches
+        return match.group(1)
+
     return None
 
 
-
-
 async def auto_rename_files(client, message):
-    
 
     user_id = message.from_user.id
     Frnd=[6693549185]
@@ -194,17 +176,15 @@ async def auto_rename_files(client, message):
         for placeholder in placeholders:
             format_template = format_template.replace(placeholder, str(episode_number), 1)
 
-        # Add extracted qualities to the format template
         quality_placeholders = ["quality", "Quality", "QUALITY", "{quality}"]
         for quality_placeholder in quality_placeholders:
             if quality_placeholder in format_template:
                 extracted_qualities = extract_quality(file_name)
                 if extracted_qualities == "Unknown":
                     await message.reply_text("**__I Was Not Able To Extract The Quality Properly. Renaming As 'Unknown'...__**")
-                    # Mark the file as ignored
                     del renaming_operations[file_id]
-                    return  # Exit the handler if quality extraction fails
-                
+                    return
+
                 format_template = format_template.replace(quality_placeholder, "".join(extracted_qualities))
 
     _, file_extension = os.path.splitext(file_name)
@@ -227,13 +207,10 @@ async def auto_rename_files(client, message):
         del renaming_operations[file_id]
         return await download_msg.edit(f"**Download Error:** {e}")
 
-    
     try:
-        # Rename the file first
         os.rename(path, renamed_file_path)
         path = renamed_file_path
 
-        # Add metadata if needed
         metadata_added = False
         _bool_metadata = await TFTBOTS.get_metadata(user_id)
         if _bool_metadata:
@@ -253,7 +230,6 @@ async def auto_rename_files(client, message):
                         metadata_added = True
                         path = metadata_file_path
                         await download_msg.edit("** Metadata Added Successfully ✅...__**")
-
                     else:
                         error_message = stderr.decode()
                         await download_msg.edit(f"**Metadata Error:**\n{error_message}")
@@ -267,11 +243,16 @@ async def auto_rename_files(client, message):
             metadata_added = True
 
         if not metadata_added:
-            # Metadata addition failed; upload the renamed file only
             await download_msg.edit(
                 "Metadata addition failed. Uploading the renamed file only."
             )
             path = renamed_file_path
+
+        # ── Watermark ──────────────────────────────────────────────
+        if media_type == "video":
+            watermark_output_path = f"Watermark/wm_{renamed_file_name}"
+            os.makedirs("Watermark", exist_ok=True)
+            path = await apply_watermark(client, user_id, path, watermark_output_path, download_msg)
 
         # Upload the file
         upload_msg = await download_msg.edit("**__Uploading...__**")
@@ -311,11 +292,10 @@ async def auto_rename_files(client, message):
                     progress_args=("Upload Started...", upload_msg, time.time()),
                 )
                 if Config.DUMB_CHANNEL:
-                   # Send user info
-                  user = message.from_user
-                  user_info = f"🧑‍💻 User Info\n\n👤 Username: @{user.username}\n🆔 User ID: {user.id}"
-                  await client.send_message(Config.DUMB_CHANNEL, user_info)               
-                  await l.forward(Config.DUMB_CHANNEL)
+                    user = message.from_user
+                    user_info = f"🧑‍💻 User Info\n\n👤 Username: @{user.username}\n🆔 User ID: {user.id}"
+                    await client.send_message(Config.DUMB_CHANNEL, user_info)
+                    await l.forward(Config.DUMB_CHANNEL)
             elif media_type == "video":
                 l=await client.send_video(
                     message.chat.id,
@@ -327,11 +307,10 @@ async def auto_rename_files(client, message):
                     progress_args=("Upload Started...", upload_msg, time.time()),
                 )
                 if Config.DUMB_CHANNEL:
-                   # Send user info
-                  user = message.from_user
-                  user_info = f"🧑‍💻 User Info\n\n👤 Username: @{user.username}\n🆔 User ID: {user.id}"
-                  await client.send_message(Config.DUMB_CHANNEL, user_info)               
-                  await l.forward(Config.DUMB_CHANNEL)
+                    user = message.from_user
+                    user_info = f"🧑‍💻 User Info\n\n👤 Username: @{user.username}\n🆔 User ID: {user.id}"
+                    await client.send_message(Config.DUMB_CHANNEL, user_info)
+                    await l.forward(Config.DUMB_CHANNEL)
             elif media_type == "audio":
                 l=await client.send_audio(
                     message.chat.id,
@@ -343,37 +322,35 @@ async def auto_rename_files(client, message):
                     progress_args=("Upload Started...", upload_msg, time.time()),
                 )
                 if Config.DUMB_CHANNEL:
-                   # Send user info
-                  user = message.from_user
-                  user_info = f"🧑‍💻 User Info\n\n👤 Username: @{user.username}\n🆔 User ID: {user.id}"
-                  await client.send_message(Config.DUMB_CHANNEL, user_info)               
-                  await l.forward(Config.DUMB_CHANNEL)
+                    user = message.from_user
+                    user_info = f"🧑‍💻 User Info\n\n👤 Username: @{user.username}\n🆔 User ID: {user.id}"
+                    await client.send_message(Config.DUMB_CHANNEL, user_info)
+                    await l.forward(Config.DUMB_CHANNEL)
         except Exception as e:
             os.remove(renamed_file_path)
             if ph_path:
                 os.remove(ph_path)
-            # Mark the file as ignored
             return await upload_msg.edit(f"Error: {e}")
 
-        await upload_msg.delete() 
+        await upload_msg.delete()
         os.remove(renamed_file_path)
         if ph_path:
             os.remove(ph_path)
 
     finally:
-        # Clean up
         if os.path.exists(renamed_file_path):
             os.remove(renamed_file_path)
         if os.path.exists(metadata_file_path):
             os.remove(metadata_file_path)
         if ph_path and os.path.exists(ph_path):
             os.remove(ph_path)
+        watermark_out = f"Watermark/wm_{renamed_file_name}"
+        if os.path.exists(watermark_out):
+            os.remove(watermark_out)
         del renaming_operations[file_id]
 
 
-
-        
-# Tech freak 
+# Tech freak
 # Don't Remove Credit!!!
 # Telegram Channel @Tech_freak_tamil
 # Developer @devilo7
