@@ -17,6 +17,7 @@ from hachoir.parser import createParser
 from helper.utils import progress_for_pyrogram, humanbytes, convert
 from helper.database import TFTBOTS
 from config import Config
+from plugins.watermark import apply_watermark
 import os
 import time
 import re
