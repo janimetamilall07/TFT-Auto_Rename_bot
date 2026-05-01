@@ -1,6 +1,6 @@
 import motor.motor_asyncio, datetime, pytz
 from config import Config
-import logging  # Added for logging errors and important information
+import logging
 from .utils import send_log
 
 
@@ -8,11 +8,11 @@ class Database:
     def __init__(self, uri, database_name):
         try:
             self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
-            self._client.server_info()  # This will raise an exception if the connection fails
+            self._client.server_info()
             logging.info("Successfully connected to MongoDB")
         except Exception as e:
             logging.error(f"Failed to connect to MongoDB: {e}")
-            raise e  # Re-raise the exception after logging it
+            raise e
         self.TFTBOTS = self._client[database_name]
         self.col = self.TFTBOTS.user
 
@@ -164,6 +164,7 @@ class Database:
         except Exception as e:
             logging.error(f"Error getting metadata code for user {id}: {e}")
             return None
+
     async def set_queue(self, id, bool_queue):
         try:
             await self.col.update_one(
@@ -215,9 +216,11 @@ class Database:
     async def get_admins(self):
         admins = await self.col.find({"_id": "admin_list"})
         return admins if admins else []
+
     async def update_admins(self, admin_list):
         await self.col.update_one({"_id": "admin_list"}, {"$set": {"admins": admin_list}}, upsert=True)
-async def set_watermark_text(self, id, text):
+
+    async def set_watermark_text(self, id, text):
         try:
             await self.col.update_one({"_id": int(id)}, {"$set": {"watermark_text": text}}, upsert=True)
         except Exception as e:
@@ -255,5 +258,6 @@ async def set_watermark_text(self, id, text):
             return user.get("watermark_position", "bottom-right") if user else "bottom-right"
         except Exception as e:
             return "bottom-right"
+
 
 TFTBOTS = Database(Config.DB_URL, Config.DB_NAME)
