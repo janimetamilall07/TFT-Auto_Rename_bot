@@ -217,6 +217,43 @@ class Database:
         return admins if admins else []
     async def update_admins(self, admin_list):
         await self.col.update_one({"_id": "admin_list"}, {"$set": {"admins": admin_list}}, upsert=True)
+async def set_watermark_text(self, id, text):
+        try:
+            await self.col.update_one({"_id": int(id)}, {"$set": {"watermark_text": text}}, upsert=True)
+        except Exception as e:
+            logging.error(f"Error setting watermark text: {e}")
 
+    async def get_watermark_text(self, id):
+        try:
+            user = await self.col.find_one({"_id": int(id)})
+            return user.get("watermark_text", None) if user else None
+        except Exception as e:
+            return None
+
+    async def set_watermark_image(self, id, file_id):
+        try:
+            await self.col.update_one({"_id": int(id)}, {"$set": {"watermark_image": file_id}}, upsert=True)
+        except Exception as e:
+            logging.error(f"Error setting watermark image: {e}")
+
+    async def get_watermark_image(self, id):
+        try:
+            user = await self.col.find_one({"_id": int(id)})
+            return user.get("watermark_image", None) if user else None
+        except Exception as e:
+            return None
+
+    async def set_watermark_position(self, id, position):
+        try:
+            await self.col.update_one({"_id": int(id)}, {"$set": {"watermark_position": position}}, upsert=True)
+        except Exception as e:
+            logging.error(f"Error setting watermark position: {e}")
+
+    async def get_watermark_position(self, id):
+        try:
+            user = await self.col.find_one({"_id": int(id)})
+            return user.get("watermark_position", "bottom-right") if user else "bottom-right"
+        except Exception as e:
+            return "bottom-right"
 
 TFTBOTS = Database(Config.DB_URL, Config.DB_NAME)
